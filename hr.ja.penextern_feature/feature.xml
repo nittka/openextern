@@ -2,8 +2,8 @@
 <feature
       id="hr.ja.penextern_feature"
       label="OpenExtern"
-      version="1.0.3"
-      provider-name="Janko Diminic"
+      version="1.1.0"
+      provider-name="Janko Diminic et al"
       os="linux,macosx,win32">
 
    <description url="https://code.google.com/archive/p/openextern/">
@@ -16,13 +16,9 @@ This plugin was orignially developed by Janko Diminic and hosted at  http://open
       ---
    </copyright>
 
-   <license url="http://www.example.com/license">
-      GPL
+   <license url="http://www.gnu.org/licenses/old-licenses/gpl-2.0.html">
+      GNU GPL v2
    </license>
-
-   <url>
-      <discovery label="Open extern SVN update site" url="http://openextern.googlecode.com/svn/trunk/openextern_update/"/>
-   </url>
 
    <requires>
       <import plugin="org.eclipse.ui"/>
@@ -34,9 +30,7 @@ This plugin was orignially developed by Janko Diminic and hosted at  http://open
 
    <plugin
          id="hr.ja.openextern"
-         download-size="50"
-         install-size="55"
-         version="0.0.0"
+         version="1.1.0"
          unpack="false"/>
 
 </feature>

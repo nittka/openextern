@@ -33,7 +33,7 @@ public abstract class BaseOpenAction implements IObjectActionDelegate {
 	public boolean execCommand(String command, String openName) {
 
 		String selectedPath = getSelectedFolderPath(selection);
-		
+
 		if (selectedPath == null) {
 			MessageDialog
 					.openError(targetPart.getSite().getShell(),
@@ -82,16 +82,16 @@ public abstract class BaseOpenAction implements IObjectActionDelegate {
 	}
 
 	/**
-	 * 
+	 *
 	 * May return null!!
 	 * @param selection
-	 * @return full path 
+	 * @return full path
 	 */
 	public String getSelectedFolderPath(ISelection selection) {
-		
+
 		TreeSelection d;
-		
-		
+
+
 		if (selection instanceof IStructuredSelection) {
 			Object sel = ((IStructuredSelection) selection).getFirstElement();
 //
@@ -111,7 +111,7 @@ public abstract class BaseOpenAction implements IObjectActionDelegate {
 					return getPath(res);
 
 			}
-			
+
 			if(sel instanceof IJavaElement) {
 				IJavaElement je = (IJavaElement) sel;
 				try {
@@ -121,7 +121,7 @@ public abstract class BaseOpenAction implements IObjectActionDelegate {
 				} catch (JavaModelException ignore) {
 				}
 			}
-			
+
 			if(sel instanceof IPluginModel) {
 				IPluginModel mod = (IPluginModel) sel;
 				String installLocation = mod.getInstallLocation();
@@ -130,23 +130,27 @@ public abstract class BaseOpenAction implements IObjectActionDelegate {
 			if(sel instanceof IJarEntryResource) {
 				IJarEntryResource jar = (IJarEntryResource) sel;
 				 IPath fullPath = jar.getFullPath();
-				
+
 				 return fullPath.makeAbsolute().toOSString();
 			}
-			
+
 			if (sel instanceof IAdaptable) {
 				IAdaptable ad = (IAdaptable) sel;
-				
+
 				IResource resource = (IResource) ad.getAdapter(IResource.class);
 				if (resource != null) {
 					return getPath(resource);
+				}
+				File file =(File) ad.getAdapter(File.class);
+				if(file!=null) {
+					return file.getAbsolutePath();
 				}
 
 			}
 			Activator.getDefault().logError("Can't find path, not implemented " + sel.getClass(), null);
 			return null;
 		}
-		
+
 		Activator.getDefault().logError("Can't find path, not implemented " + selection.getClass(), null);
 		// System.err.println("cant find path: ");
 		return null;
