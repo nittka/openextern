@@ -6,8 +6,10 @@
       provider-name="Janko Diminic"
       os="linux,macosx,win32">
 
-   <description url="http://www.example.com/description">
+   <description url="https://code.google.com/archive/p/openextern/">
       Plugin Open Extern.
+
+This plugin was orignially developed by Janko Diminic and hosted at  http://openextern.googlecode.com. Development seems to have discontinued. Some automatic exports to github exist.
    </description>
 
    <copyright url="http://www.example.com/copyright">
