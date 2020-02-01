@@ -1,26 +1,16 @@
 package hr.ja.openextern.popup.actions;
 
+import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.commands.ExecutionException;
+
 import hr.ja.openextern.Activator;
 import hr.ja.openextern.preferences.PreferenceConstants;
 
-import org.eclipse.jface.action.IAction;
-import org.eclipse.ui.IActionDelegate;
-
 public class OpenFolderAction extends BaseOpenAction {
 
-	public OpenFolderAction() {
-		super();
-	}
-
-
-
-	/**
-	 * @see IActionDelegate#run(IAction)
-	 */
-	public void run(IAction action) {
+	public Object execute(ExecutionEvent event) throws ExecutionException {
 		String commandOpenFolder = Activator.getDefault().getPreferenceStore().getString(PreferenceConstants.P_OPEN_FOLDER);
-		execCommand(commandOpenFolder, "folder");
+		execCommand(event, commandOpenFolder, "folder");
+		return null;
 	}
-
-	
 }

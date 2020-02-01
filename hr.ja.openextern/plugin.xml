@@ -3,37 +3,94 @@
 <plugin>
 
    <extension
-         point="org.eclipse.ui.popupMenus">
-      <objectContribution
-            objectClass="org.eclipse.core.runtime.IAdaptable"
-            id="hr.ja.openextern.contribution1">
+         point="org.eclipse.core.expressions.definitions">
+      <definition id="hr.ja.openextern.canOpenExtern">
+         <and>
+            <count value="1"/>
+            <iterate>
+               <or>
+                  <adapt type="org.eclipse.core.resources.IResource" />
+                  <adapt type="java.io.File" />
+                  <instanceof value="org.eclipse.jdt.core.IJavaElement"/>
+                  <instanceof value="org.eclipse.jdt.core.IJarEntryResource"/>
+                  <instanceof value="org.eclipse.pde.core.plugin.IPluginModel"/>
+               </or>
+            </iterate>
+         </and>
+      </definition>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            id="hr.ja.openextern.commandCategory"
+            name="Open Extern">
+      </category>
+      <command
+            categoryId="hr.ja.openextern.commandCategory"
+            id="hr.ja.openextern.openFolder"
+            name="Open folder"/>
+      <command
+            categoryId="hr.ja.openextern.commandCategory"
+            id="hr.ja.openextern.openShell"
+            name="Open shell"/>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commandImages">
+      <image
+            commandId="hr.ja.openextern.openFolder"
+            icon="icon/folder_open.gif"/>
+      <image
+            commandId="hr.ja.openextern.openShell"
+            icon="icon/command_open.gif"/>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            commandId="hr.ja.openextern.openFolder">
+         <class
+               class="hr.ja.openextern.popup.actions.OpenFolderAction">
+         </class>
+         <activeWhen>
+            <reference definitionId="hr.ja.openextern.canOpenExtern"/>
+         </activeWhen>
+      </handler>
+      <handler
+            commandId="hr.ja.openextern.openShell">
+         <class
+               class="hr.ja.openextern.popup.actions.OpenShellAction">
+         </class>
+         <activeWhen>
+            <reference definitionId="hr.ja.openextern.canOpenExtern"/>
+         </activeWhen>
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="popup:org.eclipse.ui.popup.any?after=additions">
          <menu
-               label="Open Extern"
-               path="additions"
-               id="hr.ja.openextern.menu">
-            <separator
-                  name="group_openextern">
-            </separator>
+               id="hr.ja.openextern.menu"
+               label="Open Extern">
+            <visibleWhen
+                  checkEnabled="false">
+               <reference definitionId="hr.ja.openextern.canOpenExtern"/>
+            </visibleWhen>
+            <command
+                  commandId="hr.ja.openextern.openShell"
+                  label="Open shell"
+                  style="push"
+                  tooltip="Open shell in this folder">
+               <visibleWhen checkEnabled="true" />
+            </command>
+            <command
+                  commandId="hr.ja.openextern.openFolder"
+                  label="Open folder"
+                  style="push"
+                  tooltip="Open explorer in this folder">
+               <visibleWhen checkEnabled="true" />
+           </command>
          </menu>
-         <action
-               class="hr.ja.openextern.popup.actions.OpenFolderAction"
-               enablesFor="1"
-               icon="icon/folder_open.gif"
-               id="hr.ja.openextern.openFolder"
-               label="Open folder"
-               menubarPath="hr.ja.openextern.menu/group_openextern"
-               tooltip="Open explorer in this folder">
-         </action>
-         <action
-               class="hr.ja.openextern.popup.actions.OpenShellAction"
-               enablesFor="1"
-               icon="icon/command_open.gif"
-               id="hr.ja.openextern.openCommand"
-               label="Open shell"
-               menubarPath="hr.ja.openextern.menu/group_openextern"
-               tooltip="Open shell in this folder">
-         </action>
-      </objectContribution>
+      </menuContribution>
    </extension>
    <extension
          point="org.eclipse.ui.preferencePages">

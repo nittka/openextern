@@ -1,28 +1,16 @@
 package hr.ja.openextern.popup.actions;
 
-import hr.ja.openextern.Activator;
-import hr.ja.openextern.Commands;
-import hr.ja.openextern.preferences.PreferenceConstants;
+import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.commands.ExecutionException;
 
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.ui.IObjectActionDelegate;
-import org.eclipse.ui.IWorkbenchPart;
+import hr.ja.openextern.Activator;
+import hr.ja.openextern.preferences.PreferenceConstants;
 
 public class OpenShellAction extends BaseOpenAction{
 
-	
-	public OpenShellAction() {
-		
-	}
-
-
-	public void run(IAction action) {
+	public Object execute(ExecutionEvent event) throws ExecutionException {
 		String commandOpenFolder = Activator.getDefault().getPreferenceStore().getString(PreferenceConstants.P_OPEN_SHELL);
-	
-		execCommand(commandOpenFolder, "shell");
+		execCommand(event, commandOpenFolder, "shell");
+		return null;
 	}
-
-
 }
